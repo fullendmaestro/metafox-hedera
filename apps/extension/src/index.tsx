@@ -1,8 +1,21 @@
 import './styles/globals.css'
 
+import React from 'react'
 import { createRoot } from 'react-dom/client'
+import { MemoryRouter } from 'react-router-dom'
+import { ThemeProvider } from '@/components/theme-provider'
+
 import App from './App'
 
 const root = createRoot(document.querySelector('#root')!)
-
-root.render(<App />)
+if (root) {
+  root.render(
+    <React.StrictMode>
+      <MemoryRouter initialEntries={['/']}>
+        <ThemeProvider storageKey='app-theme'>
+          <App />
+        </ThemeProvider>
+      </MemoryRouter>
+    </React.StrictMode>,
+  )
+}
