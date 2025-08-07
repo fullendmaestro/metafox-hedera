@@ -1,19 +1,54 @@
-import { useState } from 'react'
-import { Button } from './components/ui/button'
+import { useEffect } from 'react'
+import AppRoutes from './Routes'
+import { initializeApp } from './utils/init'
+// import {
+//   initializeWalletState,
+//   checkOnboardingStatus,
+//   checkAuthenticationStatus,
+// } from './utils/walletInit'
+import { useAppDispatch } from '@/store'
+// import { setAuthenticated, setOnBoarded } from '@/store'
 
 const App = () => {
-  const [count, setCount] = useState(0)
+  const dispatch = useAppDispatch()
 
+  useEffect(() => {
+    const init = async () => {
+      try {
+        console.log('Starting app initialization...')
+
+        // Initialize the core app functionality
+        await initializeApp()
+
+        // Initialize wallet state from storage
+        // await initializeWalletState(dispatch)
+
+        // Check onboarding and authentication status
+        // const isOnboarded = await checkOnboardingStatus()
+        // const isAuthenticated = await checkAuthenticationStatus()
+
+        // Update store with actual status
+        // dispatch(setOnBoarded(isOnboarded))
+        // if (isAuthenticated) {
+        //   dispatch(setAuthenticated({ authenticated: true }))
+        // }
+
+        // console.log('App initialization completed', { isOnboarded, isAuthenticated })
+      } catch (error) {
+        console.error('Failed to initialize app:', error)
+        // Error state is handled by the app slice if needed
+      }
+    }
+
+    init()
+  }, [dispatch])
+
+  // Let the routing system handle authentication and onboarding redirects
   return (
-    <div>
-      <p>Count: {count}...</p>
-      <Button
-        variant='secondary'
-        className='h-[3rem] px-6 py-2 w-full rounded-full text-lg'
-        onClick={() => setCount(count + 1)}
-      >
-        Increment
-      </Button>
+    <div
+      className={`min-h-screen min-w-full gradient-cosmic flex items-center justify-center transition-all duration-300`}
+    >
+      <AppRoutes />
     </div>
   )
 }
