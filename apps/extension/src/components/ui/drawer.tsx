@@ -51,8 +51,7 @@ type DrawerContentProps = React.ComponentProps<typeof DrawerPrimitive.Content> &
 
 const DrawerContent = React.forwardRef<React.ElementRef<'div'>, DrawerContentProps>(
   ({ className, children, showHandle = true, overlayClassName, ...props }, ref) => (
-    <>
-      <DrawerPortal />
+    <DrawerPortal>
       <DrawerOverlay className={overlayClassName} />
       <DrawerPrimitive.Content
         ref={ref}
@@ -67,7 +66,7 @@ const DrawerContent = React.forwardRef<React.ElementRef<'div'>, DrawerContentPro
         )}
         {children}
       </DrawerPrimitive.Content>
-    </>
+    </DrawerPortal>
   ),
 )
 DrawerContent.displayName = 'DrawerContent'
@@ -125,13 +124,13 @@ DrawerDescription.displayName = DrawerPrimitive.Description.displayName
 
 export {
   Drawer,
-  DrawerTrigger,
-  DrawerTitle,
-  DrawerHeader,
+  DrawerClose,
   DrawerContent,
   DrawerDescription,
   DrawerFooter,
-  DrawerClose,
+  DrawerHeader,
   DrawerOverlay,
   DrawerPortal,
+  DrawerTitle,
+  DrawerTrigger,
 }
